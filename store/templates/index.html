@@ -1,0 +1,67 @@
+{% extends 'Layout.html' %}
+
+<!-- เอารูปมาแสดงผล -->
+{% load static %}
+
+<!-- comma price -->
+{% load humanize %}
+
+<link rel="stylesheet" href="style.css">
+
+{% block content %}
+
+
+<div class="container mt-5">
+        {% if category == None %}
+        <h3 align="center">All Products</h3>
+        {% else %}
+        <h3 align="center">Category : {{category.name}}</h3>
+        {% endif %}
+        <br><br>
+        <div class="row">
+
+                {% for product in products %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                                <a href="{{product.get_url}}"><img class="card-img-top" width = "300px" height= "300px" src={{product.image.url}}
+                                                alt=""></a>
+                                <div class="card-body">
+                                        <h4 class="card-title">
+                                                <a href="{{product.get_url}}">{{product.name}}</a>
+                                        </h4>
+                                        <h5>฿{{product.price|intcomma}}</h5>
+                                        <p class="card-text">{{product.description | slice:":150"}}</p>
+                                </div>
+                                <div class="card-footer">
+                                        {% if product.stock <= 0 %}
+                                        <a style="color:white;" class="btn btn-danger">Out of Stock</a>
+                                        {% else %}
+                                        <a href="{% url 'addCart' product.id %}" class="btn btn-success">Buy Now!</a>
+                                        {% endif%}
+                                </div>
+                        </div>
+                </div>
+                {% endfor %}
+
+        </div>
+        <nav aria-label="Page navigation example">
+                {% if products.paginator.num_pages >  1 %}
+                <ul class="pagination">
+                        {% for page_number in products.paginator.page_range %}
+                        <li class="page-item
+                        {% if products.number == page_number %}
+                                active
+                        {% endif %}
+                        "><a class="page-link " href="?page={{page_number}}">{{page_number}}</a></li>      
+                        {% endfor %}
+                </ul>
+
+                {% endif %}
+        </nav>
+
+</div>
+
+
+
+
+{% endblock %}

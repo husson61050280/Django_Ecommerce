@@ -1,0 +1,32 @@
+{% extends 'Layout.html' %}
+
+<!-- เอารูปมาแสดงผล -->
+{% load static %}
+
+<link rel="stylesheet" href="style.css">
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4 ">Thank You!</h1>
+        <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, omnis!</p>
+        <hr class="my-4">
+        <p>ชำระเงินเรียบร้อย รอรับสินค้าได้เลย</p>
+        <a class="btn btn-success btn-lg" href="{% url 'home'  %}" role="button">ซื้อสินค้าเพิ่มเติม</a>
+      </div>
+</div>
+
+
+<style>
+    .jumbotron{
+        background: #4e6d74;
+        color: white;
+    }
+</style>
+
+
+
+
+
+{% endblock %}

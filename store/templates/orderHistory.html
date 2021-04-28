@@ -1,0 +1,63 @@
+
+{% extends 'Layout.html' %}
+
+<!-- เอารูปมาแสดงผล -->
+{% load static %}
+
+<!-- comma price -->
+{% load humanize %}
+
+<link rel="stylesheet" href="style.css">
+
+{% block content %}
+
+
+<div class="container mt-5">
+    {%if not orders %}
+    <br>
+    <div class="alert alert-warning " role="alert">
+        <h5 align="center">ไม่มีประว้ติการสั่งซื้อ</h5>
+    </div>
+    {% else %}
+    <h3 align="center">ประวัติการสั่งซื้อ</h3>
+    <div class="table-responsive cart_info mt-5">
+        <table class="table table-condensed">
+            <thead>
+                <tr class="cart_menu">
+                    <td>เลขที่ใบสั่งซื้อ</td>
+                    <td>วันออกใบสั่งซื้อ</td>
+                    <td>ยอดชำระเงิน</td>
+                    <td>รายละเอียด</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for order in orders %}
+
+                    <td class="PerchaseId">
+                        <p>{{order.id}}</p>
+                    </td>
+
+                    <td class="Date">
+                        <p>{{order.created |date:"Y-m-d"}}</p>
+                    </td>
+                    
+                    <td class="total">
+                        <p>{{order.total | intcomma}}</p>
+                    </td>
+                 
+                    <td class="description">
+                       <a href="{%  url 'orderDetail' order.id  %}"><button class = "btn btn-success">รายละเอียด</button></a> 
+                    </td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

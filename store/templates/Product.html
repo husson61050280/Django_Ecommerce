@@ -1,0 +1,45 @@
+{% extends 'Layout.html' %}
+
+<!-- comma price -->
+{% load humanize %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+        <h2 align="center">{{product.name}}</h2>
+        <div class="row">
+
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                        <div class="container">
+                                <div class="image">
+                                        <img src="{{product.image.url}}" alt="" width = "500px" height= "450px">
+                                </div>
+                                <h3>฿{{product.price|intcomma}}</h3>
+                                <p>{{product.description}}</p>
+                                {% if product.stock <= 0 %}
+                                <a style="color:white;" class="btn btn-danger">Out of Stock</a>
+                                {% else %}
+                                <a href="{% url 'addCart' product.id %}" class="btn btn-success">Buy Now!</a>
+                                {% endif%}
+                        </div>
+                </div>
+        </div>
+
+</div>
+
+<style>
+        h2{
+                font-size: 38px;
+        }
+      .image{
+              text-align: center;
+              padding: 30px;
+        }
+</style>
+
+
+
+
+{% endblock %}
